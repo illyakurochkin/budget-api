@@ -1,0 +1,99 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @cacheControl(inheritMaxAge: Boolean, maxAge: Int, scope: CacheControlScope) on FIELD_DEFINITION | INTERFACE | OBJECT | UNION
+
+type BlockEntity {
+  amount: Float!
+  amountInUSD: Float!
+  createdAt: DateTime!
+  currency: String!
+  date: DateTime!
+  id: ID!
+  source: SourceEntity!
+  sourceId: ID!
+  updatedAt: DateTime!
+}
+
+enum CacheControlScope {
+  PRIVATE
+  PUBLIC
+}
+
+input ChartInput {
+  sourceId: ID
+  tags: [String!] = []
+  type: ChartType = AMOUNT_IN_USD
+}
+
+enum ChartType {
+  AMOUNT_IN_USD
+  DOMINANCE
+}
+
+input CreateBlockInput {
+  amount: Float!
+  currency: String!
+  sourceId: ID!
+}
+
+input CreateSourceInput {
+  name: String!
+  tags: [String!] = []
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type HistoryItem {
+  date: DateTime!
+  value: Float!
+}
+
+type Mutation {
+  createBlock(input: CreateBlockInput!): BlockEntity!
+  createSource(input: CreateSourceInput!): SourceEntity!
+  debug_createTestData(userId: ID!): Boolean!
+  deleteBlock(blockId: ID!): ID!
+  deleteSource(sourceId: ID!): ID!
+  updateSource(input: UpdateSourceInput!, sourceId: ID!): SourceEntity!
+}
+
+type Query {
+  debug_getAllBlocks: [BlockEntity!]!
+  debug_getAllSources: [SourceEntity!]!
+  getBlocks(sourceId: ID!): [BlockEntity!]!
+  getChart(input: ChartInput = {tags: [], type: AMOUNT_IN_USD}): [HistoryItem!]!
+  getSources(date: DateTime, tags: [String!]): [SourceEntity!]!
+  getSummary(currency: String = "USD"): Summary!
+}
+
+type SourceEntity {
+  amount: Float!
+  amountInUSD: Float!
+  blocks: [BlockEntity!]!
+  createdAt: DateTime!
+  currency: String!
+  date: DateTime!
+  dominance: Float!
+  id: ID!
+  name: String!
+  order: Float
+  tags: [String!]!
+  updatedAt: DateTime!
+  userId: ID!
+}
+
+type Summary {
+  amount: Float!
+  amountInUSD: Float!
+  currency: String!
+}
+
+input UpdateSourceInput {
+  name: String
+  tags: [String!]
+}

@@ -1,7 +1,7 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { User } from './user.interface';
 import { ConfigService } from '@nestjs/config';
-import { ethers, recoverAddress, toUtf8Bytes } from 'ethers';
 
 @Injectable()
 export class AuthService {
@@ -10,24 +10,22 @@ export class AuthService {
     private readonly configService: ConfigService,
   ) {}
 
-  async signIn(message: string): Promise<string> {
-    try {
-      if (!message) throw new UnauthorizedException();
+  async validateUser(details: any): Promise<any> {
+    console.log('validateUser', details);
+    // Here, you would find or create a user in your database
+    // For now, we'll just return the user details
+    return details;
+  }
 
-      const address = ethers.recoverAddress(
-        "0x9bd24fb9d72ba6b423b1fc0971bad53905a9b45dd4f5b23ae1e7924a3b2d6e9b",
-        message,
-      );
-
-      return this.jwtService.signAsync(
-        { id: address },
+  async login(user: User): Promise<{ access_token: string }> {
+    return {
+      access_token: this.jwtService.sign(
+        { sub: user.email },
         {
           secret: this.configService.get('secret'),
           expiresIn: this.configService.get('jwt.expiresIn'),
         },
-      );
-    } catch (e) {
-      console.log('e', e);
-    }
+      ),
+    };
   }
 }

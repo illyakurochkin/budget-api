@@ -7,7 +7,7 @@ import { SourceEntity } from '../source/source.entity';
 @Entity('blocks')
 export class BlockEntity extends BaseWithTimeStamp {
   @Field(() => Date)
-  @Column({ type: 'date' })
+  @Column({ type: 'date', default: () => 'CURRENT_DATE' })
   date: Date;
 
   @Field(() => ID)

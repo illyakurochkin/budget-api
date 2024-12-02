@@ -16,8 +16,8 @@ import {
 import { SummaryService } from './summary.service';
 import { SourceEntity } from '../source/source.entity';
 import { UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { CurrentUser } from '../auth/current-user.decorator';
+import { JwtAuthGuard } from '../auth-deprecated/jwt-auth.guard';
+import { CurrentUser } from '../auth-deprecated/current-user.decorator';
 
 @Resolver(() => SourceEntity)
 export class SummaryResolver {

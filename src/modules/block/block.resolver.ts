@@ -1,10 +1,10 @@
-import { Args, Mutation, Query, Resolver, ID, Context } from "@nestjs/graphql";
+import { Args, Mutation, Query, Resolver, ID, Context } from '@nestjs/graphql';
 import { BlockEntity } from './block.entity';
 import { BlockService } from './block.service';
 import { CreateBlockInput } from './block.interface';
-import { UseGuards } from "@nestjs/common";
-import { JwtAuthGuard } from "../auth/jwt-auth.guard";
-import { CurrentUser } from "../auth/current-user.decorator";
+import { UseGuards } from '@nestjs/common';
+import { JwtAuthGuard } from '../auth-deprecated/jwt-auth.guard';
+import { CurrentUser } from '../auth-deprecated/current-user.decorator';
 
 @Resolver(() => BlockEntity)
 export class BlockResolver {

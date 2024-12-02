@@ -56,7 +56,7 @@ export class DebugService {
   }
 
   async createTestData(userId: string): Promise<void> {
-    throw new Error('disabled');
+    // throw new Error('disabled');
     const sources = await this.createTestSources(userId);
 
     await Promise.all(

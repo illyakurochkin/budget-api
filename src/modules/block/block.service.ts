@@ -82,7 +82,7 @@ export class BlockService {
 
     if (!block) throw new NotFoundException('block not found');
 
-    await this.entityManager.delete(BlockEntity, { where: { id: blockId } });
+    await this.entityManager.delete(BlockEntity, { id: blockId });
     return blockId;
   }
 }

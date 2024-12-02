@@ -15,8 +15,8 @@ import { SourceService } from './source.service';
 import { CreateSourceInput, UpdateSourceInput } from './source.interface';
 import { BlockService } from '../block/block.service';
 import { BlockEntity } from '../block/block.entity';
+import { CurrentUser } from '../auth-deprecated/current-user.decorator';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { CurrentUser } from '../auth/current-user.decorator';
 
 @Resolver(() => SourceEntity)
 export class SourceResolver {
